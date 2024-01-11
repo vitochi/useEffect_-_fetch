@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react"
+import { UserList } from "./components/UserList"
 
 export const UsersApp = () => {
 
-  const [users, setUsers] = useState([])
+  const [endPoint, setendPoint] = useState('users')
+
+ /*  const [users, setUsers] = useState([])
 
   const fetchUsers = async () => {
     try {
@@ -12,18 +15,27 @@ export const UsersApp = () => {
     } catch {
       console.error(error)
     }
+  } */
+
+  const handleFetch = () => {
+    // fetchUsers()
+    setendPoint('comments')
   }
 
-  useEffect ( () => {
-    fetchUsers()
-  }, [])
+  /* useEffect ( () => {  No se usa este useEffect porque al estar el boton con la funcion handleFetch ya
+    fetchUsers()          no seria necesario
+  }, []) */
 
   return (
     <>
       <h1>Lista de Usuarios:</h1>
-      <ul>
-        {users.map(user => <li key={user.id}>Nombre: {user.name} | Email: {user.email}</li>)}
-      </ul>
+      <UserList endPoint={endPoint}></UserList>
+      {/* <ul>
+        {users.map(user => <li key={user.id}>Nombre: {user.name}  |  Email: {user.email}</li>)}
+      </ul> */}
+
+      <button onClick={handleFetch}>Cargar Datos desde la Api</button>
+
     </>
   )
 }
